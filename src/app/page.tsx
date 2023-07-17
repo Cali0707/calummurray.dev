@@ -17,6 +17,45 @@ export default function Home() {
           in building in the open by default. I am interested in the intersection of algorithms, control theory, distributed systems,
           and machine learning.</p>
           <br/>
+          <p>
+            I am currently working on&nbsp;
+            <a
+                href={"https://github.com/knative/eventing"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+            >
+              Knative Eventing
+            </a>,
+            the&nbsp;
+            <a
+                href={"https://github.com/knative-sandbox/eventing-kafka-broker"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+            >
+              Eventing Kafka Broker
+            </a>, and a&nbsp;
+            <a
+                href={"https://knative.dev/blog/articles/getting-started-blog-p0/"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+            >
+              Getting Started in Open Source with Knative Blog Series
+            </a> through my internship at Red Hat. In my spare time, I am actively developing a&nbsp;
+            <a
+                href={"https://knative.dev/blog/articles/getting-started-blog-p0/"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+            >
+              set of git utilities
+            </a>
+            &nbsp;to make specific git workflows I frequently encounter while working in Open Source easier.
+
+          </p>
+          <br/>
           <p>If you are interested in getting started contributing to open source, or you have an interesting open source
           project and would like a collaborator, please reach out!</p>
         </div>

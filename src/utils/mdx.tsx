@@ -29,13 +29,13 @@ export type Article = {
     slug: string,
 }
 
-const articlesPath = path.join(process.cwd(), 'blog/articles');
+const articlesPath = path.join(process.cwd(), 'src/blog/articles');
 
 export async function getArticleData(): Promise<Article[]> {
     const articles = await fs.readdir(articlesPath);
     return await Promise.all(articles.map(async (articleSlug: string) => {
         const fileContents = await fs.readFile(path.join(articlesPath, articleSlug));
-        const {data, content, excerpt} = matter(fileContents);
+        const {data, content, excerpt} = matter(fileContents, { excerpt: true });
         const articleData = data as ArticleMetaData;
         return {
             ...articleData,

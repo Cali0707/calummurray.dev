@@ -33,7 +33,7 @@ const articlesPath = path.join(process.cwd(), 'src/blog/articles');
 
 export async function getArticleData(): Promise<Article[]> {
     const articles = await fs.readdir(articlesPath);
-    return await Promise.all(articles.map(async (articleSlug: string) => {
+    const parsedArticles = await Promise.all(articles.map(async (articleSlug: string) => {
         const fileContents = await fs.readFile(path.join(articlesPath, articleSlug));
         const {data, content, excerpt} = matter(fileContents, { excerpt: true });
         const articleData = data as ArticleMetaData;
@@ -46,6 +46,16 @@ export async function getArticleData(): Promise<Article[]> {
             publishDate: dayjs(articleData.publishDate),
         } as Article
     }));
+
+    return parsedArticles.sort((a, b) => {
+        if (a.publishDate.isBefore(b.publishDate)) {
+            return 1;
+        } else if (a.publishDate.isAfter(b.publishDate)) {
+            return -1;
+        } else {
+            return a.title.localeCompare(b.title);
+        }
+    })
 }
 
 

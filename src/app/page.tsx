@@ -21,7 +21,7 @@ export default function Home() {
             I am currently working on&nbsp;
             <a
                 href={"https://github.com/knative/eventing"}
-                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500"}
                 target={"_blank"}
                 rel={"noopener noreferrer"}
             >
@@ -30,7 +30,7 @@ export default function Home() {
             the&nbsp;
             <a
                 href={"https://github.com/knative-sandbox/eventing-kafka-broker"}
-                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500"}
                 target={"_blank"}
                 rel={"noopener noreferrer"}
             >
@@ -38,7 +38,7 @@ export default function Home() {
             </a>, and a&nbsp;
             <a
                 href={"https://knative.dev/blog/articles/getting-started-blog-p0/"}
-                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500"}
                 target={"_blank"}
                 rel={"noopener noreferrer"}
             >
@@ -46,7 +46,7 @@ export default function Home() {
             </a> through my internship at Red Hat. In my spare time, I am actively developing a&nbsp;
             <a
                 href={"https://github.com/Cali0707/git-utils/"}
-                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600"}
+                className={"font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500"}
                 target={"_blank"}
                 rel={"noopener noreferrer"}
             >

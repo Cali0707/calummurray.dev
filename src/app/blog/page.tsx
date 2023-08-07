@@ -15,17 +15,20 @@ export default async function Page() {
                         <Link
                             href={article.externalLink ?? `/blog/${article.slug}`}
                             key={`article-${article.slug}`}
-                            className={"group rounded-lg border border-transparent px-5 py-5 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"}
+                            className={"group rounded-lg border border-transparent px-5 py-5 transition-colors hover:bg-gray-100 hover:dark:bg-neutral-800/30"}
+                            {...(article.externalLink ? {target: "_blank"} : {})}
                         >
                             <h3 className={"text-2xl"}>
                                 {article.title}
                             </h3>
-                            <p className={"text-gray-600 text-sm"}>
+                            <p className={"text-gray-600 dark:text-gray-400 text-sm"}>
                                 Authored by Calum Murray{article.coAuthors ? `, ${article.coAuthors.map(a => a.name).join(', ')} ` : ' '}
                                 on&nbsp;
                                 {article.publishDate.format("MMMM DD, YYYY")}
                                 .&nbsp;
                                 {!article.externalLink && `${article.readingTime}.`}
+                            </p>
+                            <p className={"text-xs"}><br/>
                             </p>
                             <p>{article.excerpt}</p>
                         </Link>

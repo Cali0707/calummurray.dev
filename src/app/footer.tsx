@@ -37,7 +37,7 @@ export function Footer({ elements }: FooterProps): ReactElement {
   return (
     <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-5 lg:text-left p-12 md:p-24">
       {elements.map((element) => (
-        <FooterComponent {...element} />
+        <FooterComponent key={element.title} {...element} />
       ))}
     </div>
   );

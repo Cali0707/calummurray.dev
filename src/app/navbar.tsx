@@ -11,7 +11,7 @@ export function Navbar(): ReactElement {
             <Link href="/">Calum Murray</Link>
             <div className="flex gap-12">
                 <Link href="/">Home</Link>
-                <Link href="/projects">Projects</Link>
+                {/*<Link href="/projects">Projects</Link>*/}
                 <Link href="/blog">Blog</Link>
                 <div className="flex gap-4">
                     <Link className="flex flex-col justify-center" href="https://github.com/Cali0707" target="_blank"><Image className="h-4 w-fit dark:invert" priority src={githubIcon} alt="Check out my GitHub profile" /></Link>

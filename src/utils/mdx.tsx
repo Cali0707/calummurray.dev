@@ -45,7 +45,8 @@ export async function getArticleData(): Promise<Article[]> {
       const articleData = data as ArticleMetaData;
       return {
         ...articleData,
-        slug: path.parse(articlePath).name,
+        slug: path.basename(path.dirname(articlePath)),
+        coverImage: `/blog-images/${articleData.coverImage}`,
         content,
         excerpt,
         readingTime: readingTime(content).text,
@@ -60,7 +61,7 @@ export async function getArticleData(): Promise<Article[]> {
     } else if (a.publishDate.isAfter(b.publishDate)) {
       return -1;
     } else {
-      return a.title.localeCompare(b.title);
+      return -a.title.localeCompare(b.title);
     }
   });
 }

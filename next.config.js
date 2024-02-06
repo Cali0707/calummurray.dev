@@ -1,4 +1,6 @@
-const withMDX = require("@next/mdx")();
+const withMDX = require("@next/mdx")({
+    extensions: /\.mdx?$/
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

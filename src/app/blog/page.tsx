@@ -41,7 +41,6 @@ export default async function Page() {
                 on&nbsp;
                 {article.publishDate.format("MMMM DD, YYYY")}
                 .&nbsp;
-                {!article.externalLink && `${article.readingTime}.`}
               </p>
               <p>{article.excerpt}</p>
               </div>

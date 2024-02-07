@@ -1,7 +1,5 @@
-import path, { basename } from "path";
+import path from "path";
 import fs from "fs/promises";
-import matter from "gray-matter";
-import readingTime from "reading-time";
 import dayjs, { Dayjs } from "dayjs";
 
 export type Author = {
@@ -39,8 +37,12 @@ export async function getArticleData(): Promise<Article[]> {
 
   const parsedArticles = await Promise.all(
     articles.map(async (articlePath: string) => {
-      console.log(`${path.basename(path.dirname(articlePath))}/${path.basename(articlePath)}`)
-      const meta: ArticleMetaData =  require(`@/app/blog/${path.basename(path.dirname(articlePath))}/${path.basename(articlePath)}`).meta;
+      console.log(
+        `${path.basename(path.dirname(articlePath))}/${path.basename(articlePath)}`,
+      );
+      const meta: ArticleMetaData = require(
+        `@/app/blog/${path.basename(path.dirname(articlePath))}/${path.basename(articlePath)}`,
+      ).meta;
       return {
         ...meta,
         slug: path.basename(path.dirname(articlePath)),

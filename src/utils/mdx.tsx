@@ -14,6 +14,7 @@ export type ArticleMetaData = {
   externalLink: string;
   excerpt: string;
   coAuthors: Author[];
+  slug: string,
 };
 
 export type Article = {

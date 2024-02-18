@@ -10,7 +10,7 @@ export function Navbar(): ReactElement {
     <div className="bg-[#e4e4e4] dark:bg-neutral-800/50 text-black dark:text-white font-bold p-6 flex flex-row justify-between text-lg">
       <Link href="/">Calum Murray</Link>
       <div className="flex gap-12">
-        <Link href="/">Home</Link>
+        <Link href="/" className="hidden md:block">Home</Link>
         {/*<Link href="/projects">Projects</Link>*/}
         <Link href="/blog">Blog</Link>
         <div className="flex gap-4">

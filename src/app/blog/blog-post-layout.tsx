@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import "@/styles/github-dark.css";
 import { ReportView } from "./view";
 import { kv } from "@vercel/kv";
 

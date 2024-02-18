@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
 
-export async function POST(
-  req: NextRequest,
-): Promise<NextResponse> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   const body = await req.json();
   const slug = body.slug as string | undefined;
   if (!slug) {

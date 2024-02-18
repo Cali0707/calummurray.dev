@@ -18,7 +18,8 @@ export default async function BlogLayout({
   children: React.ReactNode;
   meta: ArticleMetaData;
 }) {
-  const views = await kv.get<number>(["pageviews", "projects", meta.slug].join(":")) ?? 0
+  const views =
+    (await kv.get<number>(["pageviews", "projects", meta.slug].join(":"))) ?? 0;
   return (
     <article className="p-4 md:p-20 lg:px-56 max-w-[1800px]">
       <div className="flex flex-col place-content-center text-center md:mx-32 gap-5 mb-8">
@@ -45,7 +46,7 @@ export default async function BlogLayout({
         </div>
       </div>
       <div className="mt-4 flex flex-col space-y-4">{children}</div>
-      <ReportView slug={meta.slug}/>
+      <ReportView slug={meta.slug} />
     </article>
   );
 }

@@ -11,6 +11,8 @@ extend git to have your own commands which will run whatever code you want them 
   slug: "custom-git-commands",
 };
 
+export const revalidate = 60;
+
 If you’ve ever done fork based development, you have definitely had to sync your fork’s main branch with the upstream projects main branch.
 While this process is by no means hard and takes very little time, when you have to do it multiple times a day it can get tedious. This was the
 situation I found myself in when I started contributing to Knative as a part of my Software Engineering Internship at Red Hat: I had to sync my

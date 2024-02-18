@@ -9,7 +9,7 @@ import { kv } from "@vercel/kv";
 
 dayjs.extend(localizedFormat);
 
-export const revalidate = 60
+export const revalidate = 60;
 
 export default async function BlogLayout({
   children,

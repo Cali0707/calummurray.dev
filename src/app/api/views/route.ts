@@ -8,7 +8,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return new NextResponse("Slug not found", { status: 400 });
   }
 
-  const ip = req.ip;
+  const ip = req.headers.get("X-Forwarded-For") as string | undefined;
 
   const buf = await crypto.subtle.digest(
     "SHA-256",
@@ -22,7 +22,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     nx: true,
     ex: 24 * 60 * 60,
   });
-  if (!isNew) {
+
+  if (isNew == null) {
     return new NextResponse(null, { status: 202 });
   }
 

@@ -1,7 +1,5 @@
 import path from "path";
 import fs from "fs/promises";
-import matter from "gray-matter";
-import readingTime from "reading-time";
 import dayjs, { Dayjs } from "dayjs";
 
 export type Author = {
@@ -14,7 +12,9 @@ export type ArticleMetaData = {
   publishDate: string;
   coverImage: string;
   externalLink: string;
+  excerpt: string;
   coAuthors: Author[];
+  slug: string;
 };
 
 export type Article = {
@@ -38,18 +38,17 @@ export async function getArticleData(): Promise<Article[]> {
 
   const parsedArticles = await Promise.all(
     articles.map(async (articlePath: string) => {
-      const fileContents = await fs.readFile(articlePath);
-      const { data, content, excerpt } = matter(fileContents, {
-        excerpt: true,
-      });
-      const articleData = data as ArticleMetaData;
+      console.log(
+        `${path.basename(path.dirname(articlePath))}/${path.basename(articlePath)}`,
+      );
+      const meta: ArticleMetaData = require(
+        `@/app/blog/${path.basename(path.dirname(articlePath))}/${path.basename(articlePath)}`,
+      ).meta;
       return {
-        ...articleData,
-        slug: path.parse(articlePath).name,
-        content,
-        excerpt,
-        readingTime: readingTime(content).text,
-        publishDate: dayjs(articleData.publishDate),
+        ...meta,
+        slug: path.basename(path.dirname(articlePath)),
+        coverImage: `/blog-images/${meta.coverImage}`,
+        publishDate: dayjs(meta.publishDate),
       } as Article;
     }),
   );
@@ -60,7 +59,7 @@ export async function getArticleData(): Promise<Article[]> {
     } else if (a.publishDate.isAfter(b.publishDate)) {
       return -1;
     } else {
-      return a.title.localeCompare(b.title);
+      return -a.title.localeCompare(b.title);
     }
   });
 }

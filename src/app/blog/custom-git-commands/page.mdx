@@ -1,0 +1,157 @@
+import BlogLayout from "../blog-post-layout";
+
+export const meta = {
+  title: "I Made My Own Custom Git Commands -  Here's How You Can Too",
+  publishDate: "2024-02-05",
+  coverImage: "git.png",
+  excerpt: `If you’ve ever done fork based development, you have definitely had to sync your fork’s main branch with the upstream projects main branch.
+While this process is by no means hard and takes very little time, when you have to do it multiple times a day it can get tedious. While this
+is not a big problem, it does have a small effect on my productivity every day. But how could I fix it? Enter: custom git commands! You can actually
+extend git to have your own commands which will run whatever code you want them to.`,
+  slug: "custom-git-commands",
+};
+
+If you’ve ever done fork based development, you have definitely had to sync your fork’s main branch with the upstream projects main branch.
+While this process is by no means hard and takes very little time, when you have to do it multiple times a day it can get tedious. This was the
+situation I found myself in when I started contributing to Knative as a part of my Software Engineering Internship at Red Hat: I had to sync my
+fork with the upstream project multiple times per day, across multiple repositories. There were three ways I would approach this at the time.
+
+1. Use the UI on github.com and press the “Sync Fork” button, then git pull the changes back onto my local copy of the fork. While this approach
+   has the benefit of GitHub handling the sync for you, it has the drawback of requiring you to open your fork in GitHub every time you need to sync it.
+   When I was doing this multiple times a day, I found it took me out of my flow.
+2. Just sync things manually with git commands. The way I would do this was: `git checkout main && git pull upstream && git push`. While this works,
+   it was annoying to need to remember and type the chain of three commands every time I wanted to do a seemingly straightforward task.
+3. Use the github CLI gh, and run `gh repo sync{:bash}`, which would sync my local copy of my fork with the upstream remote repository. I would then have to run
+   `git push` to sync my local copy with the origin. While this was one command less than using pure git tools, this required me to install another CLI tool
+   to my machine, and also required me to use two separate tools just to interact with git.
+
+At the same time, I was finding that I had to work with many forks of many repositories. While I would work with a few of these repositories on a daily basis,
+many of the repositories I would only need to make a change to every few months. As such, I would often only clone the repository to my machine when I needed
+to make a change, removing it when I finished. However, since this was all fork based development, I still generally wanted to set up my remotes so that I
+could pull from the upstream repository but could not push (just in case I made a mistake and accidentally pushed to the upstream remote). Similar to the
+repository sync problem above, there were a couple ways that I could do it but they were somewhat repetitive. On top of the annoyance of the repetition,
+since I was doing this much less frequently I would normally have to look up how to do it every time.
+
+Neither of these problems were huge frustrations, but they did have a small effect on my productivity every day. But in the spirit of automating my workflow,
+I decided to find a better way to approach these problems. Enter: custom git commands! You can actually extend git to have your own commands which will run whatever code you want them to.
+
+## Why Custom Git Commands?
+
+I imagine a lot of people reading this may be wondering why I chose to use custom git commands instead of just making a simple script to do what I need. The answer is twofold:
+
+1. I really like the DX (Developer Experience) of staying in the same tool when I can. If I’m working with git, I find it a lot easier to just use more git commands rather than learning
+   to use a separate script or installing some other CLI tool to use for a few specific git workflows. Rather than using git for 90% of my git workflows and some other collection of tools
+   for the remaining 10%, I can simply use git for everything I need.
+2. It’s really easy to make your own git commands! Creating the first working versions of the commands took me less than a morning to finish. While my first attempt had a few bugs,
+   I was also able to fix those.
+
+## How Do You Make Custom Git Commands?
+
+Creating your own custom git command is really simple. To demonstrate the process, let’s go through how I created my custom `git sync` command.
+
+### Step 1: Decide What Your Command Should Do
+
+Before you can code your command, you should have a good sense of what you want it to do. Think of the workflow you want to automate. How would you like this to work in your ideal world?
+What options do you want/need to be able to pass to the command when you run it?
+
+For me, I wanted to automate the process of synchronizing my fork with the upstream repository. Specifically, I wanted my remote fork and my local copy of the remote fork to have their
+main branches synchronized to the main branch of the upstream repository. I specifically did not want to try and synchronize those changes from other branches or onto other branches,
+as I wanted to have control over whether to merge or rebase changes from main onto my various feature branches. As a result, what I wanted was a really simple DX: to simply run git
+sync and have all my main branches in sync.
+
+### Step 2: Create an Executable that Performs Your Command
+
+As with any software problem, this is where you write the code! You can write it in any language you want, as long as you end up with an executable file. Since what I was doing was
+pretty straightforward and I was trying to improve my bash skills at the time, I wrote my command as a bash script. If you have a preference for any other programming or scripting languages,
+feel free to use those! You just need an executable at the end.
+
+For my script, we first had to figure out whether the main branch for the repository was named `main`, `master`, or something else:
+
+```bash
+BRANCH="$(git ls-remote --symref origin HEAD | grep ref: | sed 's/^ref: refs\/heads\/\(.*\)[[:space:]]HEAD$/\1/')"
+```
+
+This command fetches the references from the remote `origin` that are associated with the `HEAD` reference, and shows the underlying ref pointed to by the symbolic `HEAD` ref.
+It then grabs the line we want with grep and pipes it into a sed command which grabs the contents of the line that represent the git branch name.
+
+Next, I wanted to stash any changes on the current branch. I didn’t want to lose any changes or have any messy merge conflicts when running this command.
+
+```bash
+GIT_STASH_MESSAGE="${RANDOM}"
+git stash push -m "${GIT_STASH_MESSAGE}"
+```
+
+By using a random git stash message, I was able to know which stash entry was mine and check later if there was a stash entry.
+
+The next step was to switch to the main branch pointed to by the `HEAD` ref on the remote origin.
+
+```bash
+if [[ -z "$(git branch -l ${BRANCH})" ]]
+then
+	git checkout --track "origin/${BRANCH}"
+else
+	git checkout "${BRANCH}"
+fi
+```
+
+I originally only checked out the local branch, but one of my friends tried the script and ran into errors because they had deleted their local copy of the main branch. So,
+to make sure that was not an issue I added a check to ensure that the branch exists locally.
+
+Next for the `main` part of the command:
+
+```bash
+git pull upstream "${BRANCH}" --ff-only
+git push origin "${BRANCH}"
+```
+
+These two lines pulled the upstream changes that would not cause a conflict (--ff-only), and then pushed those changes back to my origin. All the branches are in sync now!
+To clean things up, I had a few final lines in the script to restore the previous state:
+
+```bash
+git switch -
+git stash list | grep "${GIT_STASH_MESSAGE}" && git stash pop 0 --index
+```
+
+Here we switch back to the previous branch and unstash the changes if any were stashed (git won’t stash an empty set of changes, so just running `git stash pop 0` may unstash
+changes that the script didn’t stash).
+
+And voila! We now have a relatively robust script that will sync the changes for us! All we need to do to complete our custom git command is to get git to recognize it.
+
+### Step 3: Register the Command With Git
+
+Git recognizes any executables in your path that are named git-\* as git commands. This is where the magic happens! If we name our script `git-sync`, make sure the file is executable,
+and add it to our path it will now work as a git command!
+
+First, let’s make sure your file has the correct name. If you called it something like `git-sync.sh` or `git-sync-command.sh` or anything else, rename it to `git-sync`.
+
+Next, let’s make sure that `git-sync` is executable:
+
+```sh
+sudo chmod a+x git-sync
+```
+
+Finally, we need to add the command to our path. For me, I made a soft link from the file in my repo to `~/bin`. For your own system, you may want to link it to somewhere else.
+
+```sh
+sudo ln -s “$(pwd)/git-sync” “${HOME}/bin/git-sync”
+```
+
+We can now run git-sync and watch it work!
+
+## What Other Custom Git Commands Should You Use?
+
+I personally created one other custom git command: `git clonefork`. `git clonefork` functions the same as git clone, except it uses the github API to find the remote of the original
+repo you forked from. It then sets up a remote called `upstream` that points to the upstream repo, and sets it up so that you can’t push to that repo, only pull (for safety).
+
+But the true answer to what other git commands you should make is it is up to you! What git workflows do you have that you would like to automate? What git workflows do you
+have that are annoying or you always forget how to do?
+
+If you work with fork based development, please try my git-utils commands and let me know how they work for you! I have personally found that they make my day to day interactions with git much easier.
+
+I hope this article serves as a starting point in your journey to automating more of your git workflows. If you found this article helpful at all, please reach out! I would love to
+hear from you about how you are automating your git workflows. Even better, if you make your own custom commands and want to share them, open a PR to my git-utils repository.
+Let’s build a great collection of git commands together and make everyone's interactions with git a bit better.
+
+export default async function Page({ children, params }) {
+  return <BlogLayout meta={meta}>{children}</BlogLayout>;
+}

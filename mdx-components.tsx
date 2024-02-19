@@ -20,6 +20,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </pre>
     ),
+    a: ({ children, ...props }) => <a {...props} className="text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500 underline">{children}</a>,
     ...components,
   };
 }

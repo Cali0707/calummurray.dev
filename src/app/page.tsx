@@ -37,7 +37,7 @@ export default function Home() {
             <a
               href={"https://github.com/knative/eventing"}
               className={
-                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500 underline"
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
               }
               target={"_blank"}
               rel={"noopener noreferrer"}
@@ -48,7 +48,7 @@ export default function Home() {
             <a
               href={"https://github.com/knative-extensions/eventing-kafka-broker"}
               className={
-                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500 underline"
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
               }
               target={"_blank"}
               rel={"noopener noreferrer"}
@@ -61,7 +61,7 @@ export default function Home() {
                 "https://github.com/knative/ux/"
               }
               className={
-                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-600 hover:dark:text-cyan-500 underline"
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
               }
               target={"_blank"}
               rel={"noopener noreferrer"}

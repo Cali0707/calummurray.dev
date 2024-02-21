@@ -23,13 +23,14 @@ export default function Home() {
           </h3>
           <br />
           <p>
-            I am a Knative Eventing Maintainer as UX Lead. For work, I am a Software Engineering 
-            Intern at Red Hat. I am also an Engineering
+            I am a Knative Eventing Maintainer as UX Lead. For work, I am a
+            Software Engineering Intern at Red Hat. I am also an Engineering
             Science Student at the University of Toronto, where I major in
             Electrical and Computer Engineering. I am passionate about Open
             Source, and I strongly believe in building in the open by default. I
-            am interested in the intersection of algorithms, uncertainty, serverless computing,
-            distributed systems, event driven systems, and machine learning.
+            am interested in the intersection of algorithms, uncertainty,
+            serverless computing, distributed systems, event driven systems, and
+            machine learning.
           </p>
           <br />
           <p>
@@ -46,7 +47,9 @@ export default function Home() {
             </a>
             , the&nbsp;
             <a
-              href={"https://github.com/knative-extensions/eventing-kafka-broker"}
+              href={
+                "https://github.com/knative-extensions/eventing-kafka-broker"
+              }
               className={
                 "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
               }
@@ -57,20 +60,18 @@ export default function Home() {
             </a>
             , and &nbsp;
             <a
-              href={
-                "https://github.com/knative/ux/"
-              }
+              href={"https://github.com/knative/ux/"}
               className={
                 "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
               }
               target={"_blank"}
               rel={"noopener noreferrer"}
             >
-              Knative UX 
+              Knative UX
             </a>{" "}
-            through my internship at Red Hat.     
-            </p>
-            <br />
+            through my internship at Red Hat.
+          </p>
+          <br />
           <p>
             If you are interested in getting started contributing to open
             source, or you have an interesting open source project and would

@@ -1,5 +1,24 @@
 import BlogLayout from "../blog-post-layout";
 
+export const metadata = {
+  openGraph: {
+    title: "I Made My Own Custom Git Commands - Here's How You Can Too",
+    description:
+      "If you've ever done fork based development, you have definitely had to sync your fork's main branch with the upstream projects main branch. This can get tedious. Enter: Custom Git Commands!",
+    url: "https://calummurray.dev/blog/custom-git-commands",
+    siteName: "Calum Murray's Blog",
+    images: [
+      {
+        url: "https://calummurray.dev/api/og?title=I Made My Own Custom Git Commands - Here's How You Can Too&image=https%3A%2F%2Fwww.calummurray.dev%2Fblog-images%2Fgit.png", // Must be an absolute URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
 export const meta = {
   title: "I Made My Own Custom Git Commands -  Here's How You Can Too",
   publishDate: "2024-02-18",
@@ -148,7 +167,7 @@ repo you forked from. It then sets up a remote called `upstream` that points to 
 But the true answer to what other git commands you should make is it is up to you! What git workflows do you have that you would like to automate? What git workflows do you
 have that are annoying or you always forget how to do?
 
-If you work with fork based development, please try my [git-utils commands](https://github.com/Cali0707/git-utils) and let me know how they work for you! I have personally found that 
+If you work with fork based development, please try my [git-utils commands](https://github.com/Cali0707/git-utils) and let me know how they work for you! I have personally found that
 they make my day to day interactions with git much easier.
 
 I hope this article serves as a starting point in your journey to automating more of your git workflows. If you found this article helpful at all, please reach out! I would love to

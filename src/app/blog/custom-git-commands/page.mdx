@@ -1,5 +1,23 @@
 import BlogLayout from "../blog-post-layout";
 
+export const metadata = {
+  openGraph: {
+    title: "I Made My Own Custom Git Commands - Here\'s How You Can Too",
+    description: "If you've ever done fork based development, you have definitely had to sync your fork\'s main branch with the upstream projects main branch. This can get tedious. Enter: Custom Git Commands!",
+    url: 'https://calummurray.dev/blog/custom-git-commands',
+    siteName: "Calum Murray's Blog",
+    images: [
+      {
+        url: "https://calummurray.dev/api/og?title=I Made My Own Custom Git Commands - Here's How You Can Too&image=https%3A%2F%2Fwww.calummurray.dev%2Fblog-images%2Fgit.png", // Must be an absolute URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+}
+
 export const meta = {
   title: "I Made My Own Custom Git Commands -  Here's How You Can Too",
   publishDate: "2024-02-18",

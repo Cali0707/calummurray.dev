@@ -23,10 +23,10 @@ export default function Home() {
           </h3>
           <br />
           <p>
-            I am a Knative Eventing Maintainer as UX Lead. For work, I am a
-            Software Engineering Intern at Red Hat. I am also an Engineering
-            Science Student at the University of Toronto, where I major in
-            Electrical and Computer Engineering. I am passionate about Open
+            I am a Knative Eventing Maintainer and UX Lead, as well as a CNCF ambassador.
+            I am also an Engineering Science Student at the University of Toronto, where I major in
+            Electrical and Computer Engineering. My current research lies in LLMs for Software Engineering
+            tasks, as well as Event Driven and Serverless Systems. I am passionate about Open
             Source, and I strongly believe in building in the open by default. I
             am interested in the intersection of algorithms, uncertainty,
             serverless computing, distributed systems, event driven systems, and
@@ -69,7 +69,7 @@ export default function Home() {
             >
               Knative UX
             </a>{" "}
-            through my internship at Red Hat.
+            .
           </p>
           <br />
           <p>

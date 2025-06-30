@@ -23,10 +23,9 @@ export default function Home() {
           </h3>
           <br />
           <p>
-            I am a Knative Eventing Maintainer and UX Lead, as well as a CNCF ambassador.
-            I am also an Engineering Science Student at the University of Toronto, where I major in
-            Electrical and Computer Engineering. My current research lies in LLMs for Software Engineering
-            tasks, as well as Event Driven and Serverless Systems. I am passionate about Open
+            I am a Knative Eventing Maintainer and UX Lead, as well as a CNCF
+            ambassador. My current research lies at the intersection of AI,
+            Serverless, and Event Driven Systems. I am passionate about Open
             Source, and I strongly believe in building in the open by default. I
             am interested in the intersection of algorithms, uncertainty,
             serverless computing, distributed systems, event driven systems, and
@@ -58,7 +57,7 @@ export default function Home() {
             >
               Knative Eventing Kafka Broker
             </a>
-            , and &nbsp;
+            , and I lead&nbsp;
             <a
               href={"https://github.com/knative/ux/"}
               className={
@@ -70,6 +69,25 @@ export default function Home() {
               Knative UX
             </a>{" "}
             .
+          </p>
+          <br />
+          <p>
+            I believe strongly in helping students participate in Open Source,
+            and I co-founded the&nbsp;
+            <a
+              href={"https://utoss.github.io/community/"}
+              className={
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
+              }
+              target={"_blank"}
+              rel={"noopener noreferrer"}
+            >
+              University of Toronto Open Source Society (UTOSS)
+            </a>
+            . Now that I have graduated, I am working to build upon my work at
+            UTOSS to create resources to help other universities create their
+            own Open Source Societies, as well as to create education resources
+            to help students contribute to open source.
           </p>
           <br />
           <p>

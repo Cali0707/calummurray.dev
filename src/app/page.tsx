@@ -57,7 +57,7 @@ export default function Home() {
             >
               Knative Eventing Kafka Broker
             </a>
-            , and I lead &nbsp;
+            , and I lead&nbsp;
             <a
               href={"https://github.com/knative/ux/"}
               className={
@@ -73,7 +73,7 @@ export default function Home() {
           <br />
           <p>
             I believe strongly in helping students participate in Open Source,
-            and I co-founded the &nbsp;
+            and I co-founded the&nbsp;
             <a
               href={"https://utoss.github.io/community/"}
               className={

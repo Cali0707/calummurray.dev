@@ -15,6 +15,7 @@ export type ArticleMetaData = {
   excerpt: string;
   coAuthors: Author[];
   slug: string;
+  defaultViews?: number;
 };
 
 export type Article = {

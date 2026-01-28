@@ -35,11 +35,13 @@ export default async function BlogLayout({
 }) {
   const views = await getViews(meta.slug, meta.defaultViews ?? 0);
   return (
-    <article className="p-4 md:p-20 lg:px-56 max-w-[1800px]">
-      <div className="flex flex-col place-content-center text-center md:mx-32 gap-5 mb-8">
-        <h1 className="text-2xl md:text-5xl">{meta.title}</h1>
+    <article className="w-full px-4 py-8 sm:px-6 md:px-12 lg:px-20 xl:px-32 max-w-[1200px] mx-auto overflow-hidden">
+      <div className="flex flex-col place-content-center text-center max-w-3xl mx-auto gap-4 sm:gap-5 mb-8 sm:mb-12">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight">
+          {meta.title}
+        </h1>
         <div className="block">
-          <address className="not-italic flex flex-row justify-center gap-2">
+          <address className="not-italic flex flex-row justify-center items-center gap-2">
             <Image
               src="/calum.webp"
               width={32}
@@ -52,14 +54,14 @@ export default async function BlogLayout({
             </Link>
           </address>
         </div>
-        <div className="block">
+        <div className="block text-sm sm:text-base">
           <time dateTime={meta.publishDate}>
             {dayjs(meta.publishDate).format("LL")}
           </time>
           {` | ${views} views`}
         </div>
       </div>
-      <div className="mt-4 flex flex-col space-y-4">{children}</div>
+      <div className="mt-4 flex flex-col space-y-4 sm:space-y-6">{children}</div>
       <ReportView slug={meta.slug} />
     </article>
   );

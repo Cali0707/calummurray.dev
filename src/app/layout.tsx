@@ -6,6 +6,11 @@ import { Navbar } from "./navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://www.calummurray.dev"
+  ),
   title: "Calum Murray",
   description: "Hi! Mi name is Calum, and this is my personal website.",
 };

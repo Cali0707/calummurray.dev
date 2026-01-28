@@ -5,8 +5,13 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const image = searchParams.get("image");
+  const url = new URL(request.url);
+  const { searchParams } = url;
+  const imageParam = searchParams.get("image");
+  // Convert relative URLs to absolute using the request origin
+  const image = imageParam?.startsWith("/")
+    ? `${url.origin}${imageParam}`
+    : imageParam;
   const title = searchParams.get("title");
   if (!image) {
     return new ImageResponse(

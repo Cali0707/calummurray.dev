@@ -3,12 +3,12 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between md:p-24 p-12">
-      <h1 className="relative flex place-items-center text-5xl font-sans font-bold">
+      <h1 className="relative flex place-items-center text-4xl md:text-5xl font-sans font-bold text-center">
         Calum Murray
       </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 mt-12">
-        <div className="relative flex items-center lg:col-start-2 justify-center top-20 lg:top-0">
+      <div className="mt-12 max-w-4xl">
+        <div className="flex justify-center mb-8 md:float-right md:ml-10 md:mb-6 lg:ml-12">
           <Image
             src={"/calum.webp"}
             alt={"Calum's profile photo"}
@@ -17,7 +17,7 @@ export default function Home() {
             className="rounded-[36px]"
           />
         </div>
-        <div className="lg:col-start-1 lg:row-start-1">
+        <div>
           <h3 className="text-3xl font-sans font-semibold">
             Hi, I&apos;m Calum Murray
           </h3>

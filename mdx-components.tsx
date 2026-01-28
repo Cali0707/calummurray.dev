@@ -10,9 +10,9 @@ type Reference = {
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    h1: ({ children }) => <h1 className="text-2xl">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-2xl">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-xl">{children}</h3>,
+    h1: ({ children }) => <h1 className="text-2xl !mt-8 !mb-4">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-2xl !mt-8 !mb-4">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-xl !mt-6 !mb-3">{children}</h3>,
     ol: ({ children }) => (
       <ol className="list-decimal list-outside flex flex-col gap-4 pl-4">
         {children}
@@ -39,7 +39,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Cite: ({ num }: { num: number }) => (
       <a
         href={`#ref-${num}`}
-        className="text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline text-sm align-super"
+        className="text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300"
       >
         [{num}]
       </a>

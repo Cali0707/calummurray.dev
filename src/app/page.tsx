@@ -23,57 +23,65 @@ export default function Home() {
           </h3>
           <br />
           <p>
-            I am a Knative Eventing Maintainer and UX Lead, as well as a CNCF
-            ambassador. My current research lies at the intersection of AI,
-            Serverless, and Event Driven Systems. I am passionate about Open
-            Source, and I strongly believe in building in the open by default. I
-            am interested in the intersection of algorithms, uncertainty,
-            serverless computing, distributed systems, event driven systems, and
-            machine learning.
+            I am an engineer, researcher, and open source maintainer specializing in Applied AI, Agentic Systems, and Distributed Systems.
+            My recent work focuses on the Model Context Protocol (MCP), where I am building tools to help LLMs interact with infrastructure
+	    and existing system, as well as to help understand how LLMs interact with tools and resources. I started&nbsp;
+	    <a
+	      href={"https://github.com/genmcp/gen-mcp"}
+              className={
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
+              }
+              target={"_blank"}
+              rel={"noopener noreferrer"}
+	     >
+	     gen-mcp
+	     </a>
+	     &nbsp;and&nbsp;
+	    <a
+	      href={"https://github.com/mcpchecker/mcpchecker"}
+              className={
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
+              }
+              target={"_blank"}
+              rel={"noopener noreferrer"}
+	     >
+	     mcpchecker
+	     </a>
+	     , and I currently maintain the&nbsp;
+	    <a
+	      href={"https://github.com/containers/kubernetes-mcp-server"}
+              className={
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
+              }
+              target={"_blank"}
+              rel={"noopener noreferrer"}
+	     >
+	     Kubernetes MCP Server
+	     </a>
+	     . I am also a&nbsp;
+	    <a
+	      href={"https://github.com/knative/eventing"}
+              className={
+                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
+              }
+              target={"_blank"}
+              rel={"noopener noreferrer"}
+	     >
+	     Knative Eventing
+	     </a> maintainer and UX Working Group Lead.
           </p>
           <br />
+	  <p>
+	  I specialize in translating theoretical concepts into robust systems. My background in Engineering Science
+	  focused on deriving engineering concepts from first principles,
+	  leading to a thesis where I built mathematical frameworks and code to analyze how Agents use context for decisions. This
+	  rigorous blend of theory and application drives my work in the Cloud Native and MCP ecosystems as
+	  a CNCF Ambassador and open source maintainer.
+	  </p>
+	  <br />
           <p>
-            I am currently working on&nbsp;
-            <a
-              href={"https://github.com/knative/eventing"}
-              className={
-                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
-              }
-              target={"_blank"}
-              rel={"noopener noreferrer"}
-            >
-              Knative Eventing
-            </a>
-            , the&nbsp;
-            <a
-              href={
-                "https://github.com/knative-extensions/eventing-kafka-broker"
-              }
-              className={
-                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
-              }
-              target={"_blank"}
-              rel={"noopener noreferrer"}
-            >
-              Knative Eventing Kafka Broker
-            </a>
-            , and I lead&nbsp;
-            <a
-              href={"https://github.com/knative/ux/"}
-              className={
-                "font-semibold transition-colors text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline"
-              }
-              target={"_blank"}
-              rel={"noopener noreferrer"}
-            >
-              Knative UX
-            </a>{" "}
-            .
-          </p>
-          <br />
-          <p>
-            I believe strongly in helping students participate in Open Source,
-            and I co-founded the&nbsp;
+            I am a strong advocate for student involvement in technology, especially within Open Source.
+            I co-founded the&nbsp;
             <a
               href={"https://utoss.github.io/community/"}
               className={
@@ -84,16 +92,13 @@ export default function Home() {
             >
               University of Toronto Open Source Society (UTOSS)
             </a>
-            . Now that I have graduated, I am working to build upon my work at
-            UTOSS to create resources to help other universities create their
-            own Open Source Societies, as well as to create education resources
-            to help students contribute to open source.
+	    while I was an undergrad student, and currently work with student groups
+	    as well as the CNCF TOC Mentoring Subproject to help students get involved in Open Source.
           </p>
           <br />
           <p>
-            If you are interested in getting started contributing to open
-            source, or you have an interesting open source project and would
-            like a collaborator, please reach out!
+	  If you are interested in contributing to open source, or you have an interesting project regarding MCP, AI Agents,
+	  or CNCF technologies, please reach out!
           </p>
         </div>
       </div>

@@ -1,0 +1,249 @@
+import BlogLayout from "../blog-post-layout";
+
+export const metadata = {
+  openGraph: {
+    title: "How I Would Use AI if I Was A Student Today",
+    description:
+      "Despite its widespread adoption and hype, I do not think students should use AI for coding. However, I do think that there is value for students to be using AI to support learning software development. In this post I lay out a framework for how AI can be beneficially used by students.",
+    url: "https://calummurray.dev/blog/using-ai-as-a-student",
+    siteName: "Calum Murray's Blog",
+    images: [
+      {
+        url: "https://calummurray.dev/api/og?title=How I Would Use AI As A Student Today&image=https%3A%2F%2Fwww.calummurray.dev%2Fblog-images%2Fai.png", // Must be an absolute URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
+export const meta = {
+  title: "How I Would Use AI if I Was A Student Today",
+  publishDate: "2026-01-28",
+  coverImage: "ai.png",
+  excerpt: `Despite its widespread adoption and hype, I do not think students should use AI for coding. However, I do think that there is value for students to be using AI to support learning software development. In this post I lay out a framework for how AI can be beneficially used by students.`,
+  slug: "using-ai-as-a-student",
+  defaultViews: 0,
+};
+
+export const revalidate = 60;
+
+The widespread use of AI today, particularly in software development, is undeniable. However, despite its widespread adoption
+and all the hype around the productivity gains from using AI for coding, I do not think students and interns should use AI directly
+for coding. Nevertheless, I still believe that there is value for students to be using AI to support learning software development.
+In this blog, I will lay out a framework for how I think AI can be used beneficially by students, with two particular workflows I see
+lots of value in today.
+
+## Background
+
+At the time I’m writing this (January 2026), AI coding tools like Claude Code, Cursor, and OpenCode have achieved broad adoption
+throughout the industry <Cite num={1} />. Many developers use these tools and tout their capabilities. Some engineers have gone beyond simply
+prompting single instances of these coding agents into creating complex multi agent setups, where they are managing potentially dozens
+of coding agents and just reviewing the outputs <Cite num={2} /> <Cite num={3} />. 
+
+Yet at the same time many are praising their AI coding tools, others are complaining about the quality of their outputs.
+The curl project closed its bug bounty program due to being overwhelmed with “AI slop” submissions <Cite num={4} />. The
+ghostty project updated their AI policy to be much more stringent, including a ban on any AI contributions for
+non accepted issues <Cite num={5} />. These instances point to a real problem with AI tools: while they can be a productivity booster, they
+can also very easily overwhelm real humans with artificial low quality slop. I believe that reducing this slop is one of
+the most important challenges within open source communities at the moment.
+
+It was actually the update to the ghostty AI policy which prompted me to write this blog. In particular,
+it was one of the sentences that Mitchell Hashimoto wrote in the PR description for the AI policy change <Cite num={5} />:
+
+> If you are a junior developer who is really trying to learn and get better, then please put aside the AI,
+do your best, and I will still help. I want to help. But I expect effort and organic thinking in return.
+
+I think this is getting at one of the main distinctions between the stories of AI productivity and the lived realities
+of AI slop many experience: if the user of the AI tool has less experience, they struggle more to guide the tool
+to produce strong outputs. But if everyone is using AI tools to enhance their productivity, how can juniors
+keep up in this new age without producing slop?
+
+## The case for not using AI to write code
+
+In this blog post I want to focus on how I would use AI tools if I was a student/intern today. In other words,
+how I would use AI tools if I was a junior developer who is really trying to learn and get better. In a future
+blog post, I will discuss how I currently use AI tools as a full time Software Engineer.
+
+The first thing to consider when it comes to using (or not using) AI tools is to consider why you are doing
+what you are doing. Why are you writing this code? Is it for a project for school? Is it for a personal side project?
+If it is for a personal side project, why are you making the project? Are you making it because this is something
+that will be useful to yourself or others once it is complete? Are you making it to put it in your portfolio to help
+get a job? Are you making it to learn something new?
+
+For many, the answer to why you are building what you are building is likely a mix of different factors. I want
+to focus on one of them: building to learn. In my opinion, this factor was implicit in the act of coding
+before the advent of AI code generation, but can now be entirely bypassed. If you always use Claude Code or Cursor to
+write your code, I posit that you are not actually learning to code yourself. Sure, you can argue that you are
+learning to “vibe code”, but you are not really learning to develop software.
+
+I think that this is, for students and junior devs, the most dangerous aspect of AI code generation: these tools
+bypass the learning of coding and software engineering, giving the impression that you are making great strides.
+However, without ingrained knowledge of software engineering principles and “good code”, these tools are enabling you to
+create prodigious amounts of AI slop code <Cite num={6} />. This is one of the key differences between the claims of success
+with AI from many experienced devs, and the reports of AI slop seen in various open source communities.
+While an experienced developer who knows good software engineering practices is able to get great results from these tools and
+will report productivity gains, an inexperienced programmer will see “working” software, but not have the experience
+or knowledge required to ensure good code is being produced. In fact, this effect goes beyond the knowledge
+of the individual engineer: in a study on AI ROI in software engineering, Stanford researchers found that codebases
+with good software engineering practices tended to enable greater productivity gains <Cite num={7} />.
+
+This is why I think it is so important to determine why it is that you are writing code, contributing to open source,
+or building your project. If part (or all) of your goal is to learn, then you should avoid using AI to write the code,
+as you will not really be learning to code. Conversely, if your goal is to just get something to work, and you do not
+care about building something with high quality code, or great architecture, or security, then feel free to just use AI.
+AI is a powerful technology, and can be used to create amazing prototypes and proofs of concepts for applications. However,
+as we have seen with various apps like Enrichlead <Cite num={8} /> <Cite num={9} />, AI is not good enough for creating
+full apps - that is where you need real software engineering knowledge.
+
+If your goal is to learn, then I believe that the best way to learn is by doing. In particular, to gain that knowledge and
+experience that will allow you to successfully use these AI tools, you will need to learn how to code without the AI tools.
+Think of it like learning math: we have had calculators for decades, yet we still learn how to do math without them so
+that we understand how these concepts work. Similarly, while modern programming languages have existed for decades,
+abstracting away assembly, learning assembly is still a common course in most undergraduate CS/computer engineering degrees.
+Regardless of whether you will be writing the code yourself in the future or letting AI write the code for you (I don’t
+currently think that AI will replace all programmers), if you intend to understand and to be able to critique and improve
+on the AI code, you will need to learn to code the old fashioned way.
+
+## The case for using AI to learn to write code
+
+Now if you got this far in the article, you may be confused: I opened this article by stating that I would explain how I
+would use AI as a student or a junior dev, yet I just said that you will need to learn to code the old fashioned way,
+without AI. What’s going on here? To answer, let me expand and clarify my earlier statement: if you intend to understand and
+to be able to critique and improve on AI code, you will need to learn to code the old fashioned way, however you can use AI
+to help you learn. In fact, I believe that there are two key problems in learning to code that AI tools can help you with:
+getting feedback on your code, and figuring out random bugs.
+
+### Getting Feedback
+
+Let’s start with the topic of feedback on your code. In my mind, this is one of the most challenging parts of being a junior
+developer. You learn to code either online or in high school/university class settings. In my experience, the amount of
+feedback you receive on your code is relatively minimal, beyond “it works” or “it doesn't work”. The reality is that
+giving high quality feedback on code is not a relatively scalable process. There is a reason why it takes so much time to
+review code, even for senior developers.
+
+This leads to a scenario where as you are learning, and making your first projects, you are not getting much feedback on
+how you can improve your code. In fact for many, the first time they will get meaningful and consistent feedback on their
+code is at their first job. This is problematic because you often need to produce code of a high enough quality to actually
+land that job - it is a chicken and the egg problem!
+
+For me, this is the first great use case of AI for students/juniors: use it to review your code. Take the time to think
+through the problem you are solving, write the code yourself, debug the code yourself, and get it to a state where you think
+it is good. Then, ask your favourite AI coding tool to review and critique the code that you have produced. A good prompt
+to use can be seen below:
+
+```text
+You are a senior software engineer mentoring a junior. Please review the current
+changes to the code, focusing on providing constructive feedback that will help
+the developer grow. Focus on:
+1. Correctness of the code
+2. Potential bugs or edge cases
+3. Best practices for code design and architecture
+4. Readability and maintainability
+5. Security (if applicable)
+
+Be sure to highlight strengths of the code, as well as weaknesses the developer
+can improve on. 
+
+Always provide explanations for every point of feedback you give, to enable 
+learning.
+```
+
+Now not only are you getting the hands-on learning experience by building the project yourself, you are actually getting feedback
+on how to improve your code! It is crucial that at this stage, you fix the code yourself, rather than letting the AI
+agent fix the code for you. This will help to ingrain these best practices, so that you will know them in the future.
+For any feedback where you don’t understand why you are being asked to make a change, take the time to think through
+and research why this would improve your code, or why this would prevent a bug.
+
+### Debugging
+
+The second scenario where I believe AI can help students is through helping to understand weird bugs that come up as you 
+are writing code. One of the hardest problems when you are learning to code is debugging. There is so much knowledge you
+often need of the system in order to know what is going wrong, and often you don’t even know what you would need to know
+to start looking for the solution.
+
+When I speak of using AI to help understand bugs, I don’t mean to always ask AI right away. One of the best pieces of advice
+I received at my first internship was to always ask a senior dev if I was stuck on a single problem for more than 2 hours without
+making any meaningful progress. I believe that this is a good rule of thumb for when to ask an AI agent for help, if you are
+trying to maximize your personal learning. A lot of the learning comes from the struggle of trying to think through what could be
+going wrong, and making attempts at fixes based on those hypotheses. However, just because a lot of learning comes from the
+struggle, doesn’t mean you should get totally stuck and frustrated. After a few hours of struggling, if you don’t seem to be
+making progress, ask away.
+
+There is one final piece of advice I have for those who are using AI to help with debugging: whenever AI presents you with an
+explanation of what is going on, or a solution to your problem, stop and try to think through why this is actually fixing your problem.
+I picked up this practice back in the olden times when searching for solutions on StackOverflow was the way to find the answer to your
+bug. If you take the time to internalize and explain to yourself why this solution is the solution to your problem, particularly
+in the context of everything you tried that did not work, you will find that you learn a lot from the experience.
+
+I hope that you find this blog to be a pragmatic and useful stance on using AI as a student or junior developer. I believe that it
+can be a very useful tool to enhance the productivity of more senior developers, and that it can be a very useful tool to enhance
+the learning of more junior developers. However, I think the most important thing is that junior developers actually put in the effort
+to build their programming skills. In a time when AI allows people to bypass the creation of basic software skills, building those
+skills remains just as important as it was before. Without learning these skills, you will struggle to move beyond vibe coded slop,
+and into the realm of productivity increases promised by many of the more AI maximalist developers online.
+
+## References
+
+<References references={[
+    {
+      authors: "Jetbrains",
+      title: "Developer Ecosystem 2025",
+      year: 2025,
+      url: "https://devecosystem-2025.jetbrains.com/artificial-intelligence"
+    },
+    {
+      authors: "Yegge, Steve",
+      title: "Welcome to Gas Town",
+      year: 2025,
+      url: "https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04"
+    },
+    {
+      authors: "Lorenc, Dan",
+      title: "A Gentle Introduction to multiclaude",
+      year: 2026,
+      url: "https://dlorenc.medium.com/a-gentle-introduction-to-multiclaude-36491514ba89"
+    },
+    {
+      authors: "Stenberg, Daniel",
+      title: "The End of the Curl Bug-Bounty",
+      year: 2026,
+      url: "https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/"
+    },
+    {
+      authors: "Hashimoto, Mitchell",
+      title: "Updated AI usage policy for contributions",
+      year: 2026,
+      url: "https://github.com/ghostty-org/ghostty/pull/10412"
+    },
+    {
+      authors: "Vizard, Mike",
+      title: "Best of 2025: Survey: AI Tools are Increasing Amount of Bad Code Needing to be Fixed",
+      year: 2025,
+      url: "https://devops.com/survey-ai-tools-are-increasing-amount-of-bad-code-needing-to-be-fixed-2/"
+    },
+    {
+      authors: "Denisov-Blanch, Stanford",
+      title: "Can you prove AI ROI in Software Eng? (Stanford 120k Devs Study) – Yegor Denisov-Blanch, Stanford",
+      year: 2025,
+      url: "https://www.youtube.com/watch?v=JvosMkuNxF8"
+    },
+    {
+      authors: "Acevedo, Leonel",
+      title: "Untitled X Post",
+      year: 2025,
+      url: "https://x.com/leojrr/status/1900767509621674109"
+    },
+    {
+      authors: "Acevedo, Leonel",
+      title: "Untitled X Post",
+      year: 2025,
+      url: "https://x.com/leojrr/status/1901560276488511759"
+    },
+]} />
+
+export default async function Page({ children, params }) {
+  return <BlogLayout meta={meta}>{children}</BlogLayout>;
+}

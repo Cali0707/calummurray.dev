@@ -1,4 +1,5 @@
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 import createMDX from "@next/mdx";
 
 const options = {
@@ -13,7 +14,7 @@ const options = {
 const withMDX = createMDX({
   extensions: /\.mdx?$/,
   options: {
-    rehypePlugins: [[rehypePrettyCode, options]],
+    rehypePlugins: [rehypeUnwrapImages, [rehypePrettyCode, options]],
   },
 });
 

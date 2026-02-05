@@ -1,0 +1,145 @@
+import BlogLayout from "../blog-post-layout";
+
+export const metadata = {
+  openGraph: {
+    title: "A Developer's Intro to the Agent Client Protocol (ACP)",
+    description:
+      "The Agent Client Protocol standardizes how agents and client programs interact with each other, simplifying the integration of disparate agents and client applications. While this protocol got less attention than MCP and A2A did in 2025, I believe that with the growing number of agnets, as well as their emergent broad capabilities, ACP will be more relevant going forwards. In this blog I discuss what the Agent Client Protocol is, why I think it is important, and how it works.",
+    url: "/blog/intro-to-acp",
+    siteName: "Calum Murray's Blog",
+    images: [
+      {
+        url: "/api/og?title=A%20Developer's%20Intro%20to%20the%20Agent%20Client%20Protocol%20(ACP)&image=%2Fblog-images%2Facp.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
+export const meta = {
+  title: "A Developer's Intro to the Agent Client Protocol (ACP)",
+  publishDate: "2026-02-05",
+  coverImage: "acp.png",
+  excerpt: `The Agent Client Protocol standardizes how agents and client programs interact with each other, simplifying the integration of disparate agents and client applications. While this protocol got less attention than MCP and A2A did in 2025, I believe that with the growing number of agnets, as well as their emergent broad capabilities, ACP will be more relevant going forwards. In this blog I discuss what the Agent Client Protocol is, why I think it is important, and how it works.`,
+  slug: "intro-to-acp",
+  defaultViews: 0,
+};
+
+export const revalidate = 60;
+
+
+With the rapid rise of LLMs, and more recently of agentic systems built with LLMs, it is no surprise that there have
+been many protocols emerging in the past few years to help standardize how these systems work and interact. In 2024, Anthropic
+introduced the Model Context Protocol (MCP) <Cite num={1} />, standardizing how agents connect to external systems. In 2025, 
+Google (along with many partner organizations) launched the Agent2Agent (A2A) protocol <Cite num={2} />, standardizing how 
+agents communicate with each other in multi agent systems. While both of these protocols received well deserved hype and 
+attention in 2025, I would like to focus on another protocol that was launched in 2025 that I believe is highly relevant in
+2026: the Agent Client Protocol (ACP).
+
+Introduced in September 2025 <Cite num={3} />, the Agent Client Protocol standardizes how agents and client programs interact with each other,
+simplifying the integration of disparate agents and client applications (e.g. code editors). While this protocol got less
+attention than MCP and A2A did in 2025, I believe that with the growing number of agents (Claude Code, OpenCode, Codex, Gemini
+CLI, etc.), as well as their emergent broad capabilities, ACP will be more relevant going forwards. In this blog I will discuss
+what the Agent Client Protocol is, why I think it is important, and how it works.
+
+## What is ACP?
+
+As I said above, ACP standardizes the interaction between agents and clients. For our purposes, let us say that an agent
+is some program that has access to one or more LLMs as well as some tools and is able to address user prompts through some
+form of agentic loop. Similarly, a client is any application that is able to interact with an agent. ACP solves the M to N
+problem of client applications integrating with agents. 
+
+The easiest way to understand the problem ACP solves is through the example of an IDE. If I were to build an IDE, and I wanted
+to integrate agentic coding capabilities into it where it could leverage existing coding models such as claude code or OpenCode,
+I would need to implement the integration once per agent I wanted to integrate with. Similarly, if I were to build my own agent
+and I wanted all the different IDEs to be able to use it, I would need to build an integration with each IDE. ACP is the solution
+to these challenges: every ACP compatible agent can be used by every ACP compatible client.
+
+## Why is ACP important?
+
+I think there are three key factors which make the perfect storm for ACP to be useful:
+
+1. Agents are getting better, and are often broadly capable across disparate tasks.
+2. There is a rising number of agents that users can choose from (think Claude Code, OpenCode, Codex, Gemini CLI, etc.), which offer
+differences in performance and cost for different tasks.
+3. As more users are exploring AI powered workflows, many (especially developers) are creating their own workflows and tools around these
+agents.
+
+With agents becoming more broadly capable, users are able to apply them to more problems, and hence the agents are useful in a
+larger number of applications (clients). Furthermore, since there are more agents available and they each have different cost
+and performance implications for a given task, users are inclined to use different agents and perhaps even switch between agents for
+different tasks (or if they run out of tokens on one agent). These pressures come to a head as more and more users are creating
+their own workflows and tools: without the Agent Client Protocol, it will be very difficult (if not impossible) to keep all the
+different agents and client applications integrated with each other.
+
+Going beyond these pressures leading to the Agent Client Protocol being useful within more applications, I think it is useful because
+it decouples the development of clients from the development of agents, allowing both to innovate independently. As we have seen,
+agents are becoming more capable at a rapid pace: without needing to focus on the client application, agent developers can focus on
+improving the agent itself. Similarly, developers of client programs can focus on the specific workflows and use cases they want to
+solve, rather than building their own agents or building integrations with existing agents.
+
+## How does ACP work?
+
+ACP is designed in a very similar manner as MCP: it uses a client server architecture, where the clients are (obviously) the clients,
+and the agents are the servers. Similar to MCP and A2A it handles communication using JSON RPC 2 over a defined transport. Currently
+that transport is limited to stdio, but there is currently work in progress to potentially support HTTP as well.
+
+![ACP Client Server diagram](/blog-images/acp-client-server.svg)
+
+When a client starts, it creates a connection to any agents it wants to connect to. Currently, with the stdio agents, this generally
+involves spawning the agents as their own child processes. Once the connection is established, the client creates one or more sessions
+with the agent. The client specifies the current working directory as well as any MCP servers that the agent should connect to as part
+of the session creation process. Once a session is created, the client can send a prompt to the session. The agent then handles the
+prompt, streaming progress updates to the client. Optionally, the agent can request permission to execute tool calls from the client.
+Eventually, the agent will signal that it finished processing the prompt. At this point, the client can optionally send another prompt,
+continuing the conversation. Optionally, agents can support resuming past sessions by session ID.
+
+![ACP Session Request Flow diagram](/blog-images/acp-session-overview.svg)
+
+There are some really powerful features this design enables:
+1. The client is able to have multiple concurrent sessions with the same agent, operating with potentially different directories
+and combinations of MCP servers.
+2. Client applications can resume older conversations as needed (if supported by the agent).
+3. The client can dynamically choose the MCP servers to configure the agent with when it creates a new session, without needing to
+worry about all the differences in how to configure MCP servers for the different agents.
+
+On top of all these features for client/agent communication, the community also recently introduced an agent registry. This registry
+specifies how to install and authenticate with different ACP compatible agents, making it easier than ever for users of ACP clients to
+use the ACP agents.
+
+## Conclusion
+
+ACP is a powerful protocol that I believe more people should be adopting in 2026. It simplifies how client applications communicate with
+agents, allowing for more focused innovation within both the agents and the clients. I personally integrated it into my project 
+<a href="https://github.com/mcpchecker" target="_blank" rel="noopener noreferrer" className="text-cyan-900 hover:text-cyan-600 dark:text-cyan-400 hover:dark:text-cyan-300 underline">mcpchecker</a> (a testing/evaluation framework for MCP servers), and it simplified and improved the
+integration of the project with agents. I’m excited to see what people build with the protocol, as well as to see how the protocol evolves.
+
+## References
+
+<References references={[
+    {
+      authors: "Anthropic",
+      title: "Introducing the Model Context Protocol",
+      year: 2024,
+      url: "https://www.anthropic.com/news/model-context-protocol"
+    },
+    {
+      authors: "Rao Surapaneni, Miku Jha, Michael Vakoc, Todd Segal",
+      title: "Announcing the Agent2Agnet Protocol (A2A)",
+      year: 2025,
+      url: "https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/"
+    },
+    {
+      authors: "Paul Sawers",
+      title: "Zed debuts Agent Client Protocol to connect AI coding agents to any editor",
+      year: 2025,
+      url: "https://tessl.io/blog/zed-debuts-agent-client-protocol-to-connect-ai-coding-agents-to-any-editor/"
+    },
+]} />
+
+export default async function Page({ children, params }) {
+  return <BlogLayout meta={meta}>{children}</BlogLayout>;
+}

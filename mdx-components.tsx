@@ -36,6 +36,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </a>
     ),
+    img: ({ alt, ...props }) => (
+      <figure className="flex flex-col items-center">
+        <img alt={alt} {...props} />
+        {alt && (
+          <figcaption className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center italic">
+            {alt}
+          </figcaption>
+        )}
+      </figure>
+    ),
     Cite: ({ num }: { num: number }) => (
       <a
         href={`#ref-${num}`}

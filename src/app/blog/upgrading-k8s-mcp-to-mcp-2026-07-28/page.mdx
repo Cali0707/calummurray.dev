@@ -1,0 +1,97 @@
+import BlogLayout from "../blog-post-layout";
+
+export const metadata = {
+  openGraph: {
+    title: "Updating the Kubernetes MCP Server to MCP 2026-07-28",
+    description:
+      "This week MCP released version 2026-07-28: a large change to the protocol. In this blog I discuss the process of updating a server to the new protocol, through the perspective of the kubernetes MCP server.",
+    url: "/blog/upgrading-k8s-mcp-to-mcp-2026-07-28",
+    siteName: "Calum Murray's Blog",
+    images: [
+      {
+        url: "/api/og?title=Updating%20the%20Kubernetes%20MCP%20Server%20to%20MCP%202026-07-28&image=%2Fblog-images%2Fmcp.svg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
+export const meta = {
+  title: "Updating the Kubernetes MCP Server to MCP 2026-07-28",
+  publishDate: "2026-07-31",
+  coverImage: "mcp.svg",
+  excerpt: `This week MCP released version 2026-07-28: a large change to the protocol. In this blog I discuss the process of updating a server to the new protocol, through the perspective of the kubernetes MCP server.`,
+  slug: "upgrading-k8s-mcp-to-mcp-2026-07-28",
+  defaultViews: 0,
+};
+
+export const revalidate = 60;
+
+This past week, the Model Context Protocol (MCP) had its first new version of 2026: MCP 2026-07-28. As a maintainer of the [Kubernetes MCP Server](https://github.com/containers/kubernetes-mcp-server), 
+I made sure we updated to the new specification this week, and we put out a release today including that. In this blog post I would like to talk 
+about the process of this update so that others in the community can know how easy it is to make the update, despite the breaking changes.
+
+# What is MCP 2026-07-28?
+
+MCP 2026-07-28 is a new specification version of MCP, and it includes multiple breaking changes. The MCP maintainers wrote a [great blog summarizing 
+the changes made in this version](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/), so rather than summarizing the whole thing I will just highlight a few changes that were especially relevant as a MCP server maintainer.
+
+## MCP Is Stateless
+
+MCP has until this release been a primarily stateful protocol. While in the past it was possible for a server to act as if it was “stateless” 
+(for example in the go SDK you would set [`StreamableHTTPOptions.Stateless` to true](https://pkg.go.dev/github.com/modelcontextprotocol/go-sdk@v1.6.1/mcp#StreamableHTTPOptions.Stateless)), the protocol itself was a stateful protocol, servers 
+could just optionally ignore the stateful parts of it. This new release changes that: the protocol is now stateless, and if servers need 
+statefulness they need to handle that themselves.
+
+To make the protocol stateless, two key changes occurred (along with some other minor ones):
+
+1. The `initialize` request is gone. In prior versions, the client must always send an `initialize` request to the server, and the server would respond with information
+about itself, as well as a session id. Instead of an `initialize` request, there is now a `server/discover` request to find out the information about the server, however 
+this does not return a session id.  
+2. No more session ids\! Prior to this change, clients had to store the session id from the `initialize` request and then send that to the server on each subsequent 
+request in the same session. While this was fine in the original `stdio` transport of the protocol where the servers were all local, it did not scale well as this meant 
+that horizontally scaling a MCP server required sticky routing within a session (and got even more complex when you consider horizontally scaled MCP gateways talking to 
+horizontally scaled MCP servers).
+
+## Deprecations
+
+Unlike the stateful \-\> stateless change which is just a direct breaking change, there are also a few deprecations in this update. Notably, Roots, Sampling, and Logging
+were all deprecated. While these methods still work in the most recent spec version, they are now marked as deprecated. A key part of this change is the announcement of
+a deprecation policy: the community has decided on a minimum of 12 months of support for a feature after it is deprecated before removal. For cases where there is a 
+security risk associated with the deprecation, this can be reduced to 90 days.
+
+# What requirements did we have for the upgrade?
+
+As the kubernetes MCP server is used to interact with many production clusters, we make many efforts to ensure that we do not break users on new releases. And if we
+absolutely need to, we always ensure those breaking changes are noted. In the case of the new spec version, we had a hard requirement to still support the previous
+(2025-11-25) version for now, while also supporting the newer 2026-07-28 version. While we as a team believe that the new spec version is a huge improvement, we also
+need to concern ourselves with the MCP clients our users are on. We cannot expect them to upgrade overnight when a new version is released.
+
+# The Upgrade
+
+Luckily for us, the MCP community did amazing work on the official Go SDK. The Go SDK transparently translates between the old protocol version and the new one,
+based on what the client sends in requests. This made our upgrade very simple, all we needed to do was:
+
+1. Upgrade to the 1.7.0 release of the Go SDK.  
+2. Add some `nolint` directives to allow our MCP logging layer to remain for now, while we announce the deprecation and removal of that feature from our server
+(we do not use roots or sampling, so did not need to worry about those).  
+3. Update our test snapshots, as the new version has an `idempotentHint` annotation on tools that were not present before.
+
+We merged [the PR](https://github.com/containers/kubernetes-mcp-server/pull/1254) with those changes in today, and cut a fresh release. Huge kudos to the maintainers of the Go SDK for making the migration across the breaking transport
+protocol changes so seamless\!
+
+# Concluding Thoughts
+
+Upgrading to the new protocol version was an easy experience with the Go SDK, in large part since it was a Tier 1 official SDK. Last year we migrated from a community 
+SDK to the official SDK, and in hindsight that effort was definitely worth our time. If you are using an official SDK, I would recommend upgrading and getting all the
+great new features of the 2026-07-28 spec, it will make it much easier to run your server in the cloud. If you are not on an official SDK or are thinking about creating
+a server, I would recommend looking into using the official SDKs.
+
+I have more thoughts on what the changes in this new MCP version mean about the growing role of cloud native AI, which I will share in my next blog post.
+
+export default async function Page({ children, params }) {
+  return <BlogLayout meta={meta}>{children}</BlogLayout>;
+}
